@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import supabase from "./supabase";
 
 const CATEGORIES = [
   { name: "technologie", color: "#3b82f6" },
@@ -26,28 +27,29 @@ function NewfactForm({ setFacts, setShowForm }) {
   const [text, setText] = useState("");
   const [source, setSource] = useState("");
   const [category, setCategory] = useState("");
+  const [isUploading, setIsUploading] = useState(false);
   const textLenght = text.length;
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     // prevent page reload
     e.preventDefault();
     console.log(text, source, category);
 
     // Check if data is valid. If so, create a new fact
     if (text && isValidHttpUrl(source) && category && textLenght <= 200) {
-      // Create a new fact object
-      const newFact = {
-        id: Math.round(Math.random() * 1000000),
-        text,
-        source,
-        category,
-        votesInteresting: 0,
-        votesMindblowing: 0,
-        votesFalse: 0,
-        createdIn: new Date().getFullYear(),
-      };
+      setIsUploading(true);
+      const { data: newFact, error } = await supabase
+        .from("facts")
+        .insert([{ text, source, category }])
+        .select();
+      setIsUploading(false);
+
+      if (error) {
+        alert(error);
+      }
 
       // Add the new fact to the list of facts
-      setFacts((facts) => [newFact, ...facts]);
+      if (!error) setFacts((facts) => [newFact[0], ...facts]);
     }
     // Reset the form
     setText("");
@@ -65,6 +67,7 @@ function NewfactForm({ setFacts, setShowForm }) {
         placeholder="Partage un fait avec le monde..."
         value={text}
         onChange={(e) => setText(e.target.value)}
+        disabled={isUploading}
       />
       <span>{200 - textLenght}</span>
       <input
@@ -81,7 +84,9 @@ function NewfactForm({ setFacts, setShowForm }) {
           </option>
         ))}
       </select>
-      <button className="btn btn-large">Publier</button>
+      <button className="btn btn-large" disabled={isUploading}>
+        Publier
+      </button>
     </form>
   );
 }
