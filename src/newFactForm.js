@@ -5,11 +5,12 @@ const CATEGORIES = [
   { name: "sciences", color: "#16a34a" },
   { name: "finance", color: "#ef4444" },
   { name: "societe", color: "#eab308" },
-  { name: "entertainment", color: "#db2777" },
+  { name: "divertissement", color: "#db2777" },
   { name: "sante", color: "#14b8a6" },
   { name: "histoire", color: "#f97316" },
   { name: "news", color: "#8b5cf6" },
 ];
+
 function isValidHttpUrl(string) {
   let url;
   try {
@@ -73,7 +74,7 @@ function NewfactForm({ setFacts, setShowForm }) {
         onChange={(e) => setSource(e.target.value)}
       />
       <select value={category} onChange={(e) => setCategory(e.target.value)}>
-        <option value="">Choisir sa catégorie:</option>
+        <option value="">Catégorie:</option>
         {CATEGORIES.map((cat) => (
           <option key={cat.name} value={cat.name}>
             {cat.name.toUpperCase()}

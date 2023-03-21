@@ -1,6 +1,13 @@
 import Fact from "./fact";
 
 function FactList({ facts }) {
+  if (facts.length === 0) {
+    return (
+      <section>
+        <p>Il n'y a pas de faits à afficher. Ajoute le tiens !</p>
+      </section>
+    );
+  }
   return (
     <section>
       <ul className="facts-list">
