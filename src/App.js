@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import supabase from "./supabase";
 
 function App() {
-  const [showForm, setShowForm] = useState(true);
+  const [showForm, setShowForm] = useState(false);
   const [facts, setFacts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [currentCategory, setCurrentCategory] = useState("all");

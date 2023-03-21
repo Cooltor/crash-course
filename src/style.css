@@ -8,7 +8,7 @@ body {
   background-color: #5957eb;
   color: #fafaf9;
   font-family: "Noto Serif Lao", sans-serif;
-  padding: 48px 64px;
+  padding: 48px 64px 0px;
 }
 
 .hidden {
@@ -19,6 +19,11 @@ body {
 #root {
   max-width: 1500px;
   margin: 0 auto;
+}
+
+section {
+  overflow: scroll;
+  padding-bottom: 40px;
 }
 
 .header {
@@ -32,6 +37,19 @@ body {
   display: grid;
   grid-template-columns: 250px 1fr;
   gap: 48px;
+  height: calc(100vh - 48px - 68px - 40px);
+}
+
+section {
+  overflow: scroll;
+  padding-bottom: 40px;
+
+  -ms-overflow-style: none; /* for Internet Explorer */
+  scrollbar-width: none; /* disable scroll bars for Firefox */
+}
+
+section::-webkit-scrollbar {
+  display: none; /* disable scroll bars for Chrome */
 }
 
 @media (max-width: 900px) {
@@ -97,6 +115,12 @@ h1 {
   padding-right: 10px;
   border-radius: 5px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.disputed {
+  color: #ef4444;
+  font-weight: 600;
+  margin-right: 10px;
 }
 
 .vote-buttons {
@@ -217,7 +241,7 @@ ul {
 
 @media (max-width: 1000px) {
   body {
-    padding: 32px 48px;
+    /* padding: 32px 48px; */
   }
 
   .fact-form {

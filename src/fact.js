@@ -14,6 +14,8 @@ const CATEGORIES = [
 
 function Fact({ fact, setFacts }) {
   const [isUpdating, setIsUpdating] = useState(false);
+  const isDisputed =
+    fact.votesInteresting + fact.votesMindblowing < fact.votesFalse;
 
   const handleVote = async function (columnName) {
     setIsUpdating(true);
@@ -33,6 +35,9 @@ function Fact({ fact, setFacts }) {
   return (
     <li key={fact.id} className="fact">
       <p>
+        {isDisputed ? (
+          <span className="disputed">FAIT DISPUTÉ ! ⚠️</span>
+        ) : null}
         {fact.text}
         <a className="source" href={fact.source} target="_blank">
           (Source)
